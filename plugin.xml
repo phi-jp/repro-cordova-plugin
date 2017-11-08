@@ -58,11 +58,23 @@
             <service android:name="io.repro.android.ReproService" />
         </config-file>
 
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver
+                android:name="io.repro.android.GCMReceiver"
+                android:exported="true"
+                android:permission="com.google.android.c2dm.permission.SEND">
+                <intent-filter>
+                    <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                    <category android:name="${applicationId}" />
+                </intent-filter>
+            </receiver>
+        </config-file>
+
         <source-file src="src/android/CordovaPlugin.java" target-dir="src/io/repro/cordova" />
         <source-file src="src/android/StandardEventPropertiesFactory.java" target-dir="src/io/repro/cordova" />
         <resource-file src="src/android/repro-android-sdk.aar" target="libs/repro-android-sdk.aar" />
 
-        <framework src="com.google.android.gms:play-services-gcm:7.0.0" />
+        <framework src="com.google.firebase:firebase-messaging:+" />
         <framework src="src/android/repro-android-sdk.gradle" custom="true" type="gradleReference" />
 
     </platform>
